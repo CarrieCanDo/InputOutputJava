@@ -32,7 +32,11 @@ public class ReadIntegersFromFile {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                integers.add(Integer.parseInt(line));
+                try {
+                    integers.add(Integer.parseInt(line));
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping invalid number format in file " + fileName + ": " + line);
+                }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from " + fileName + ": " + e.getMessage());
